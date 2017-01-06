@@ -4,13 +4,13 @@
 <br> 
 
 ###开始
-<br> 
 `npm install`
+<br> 
 
 ###开发
-<br> 
 `npm run dev`
+<br> 
 
 ###打包
-<br> 
 `npm run build`
+<br> 
