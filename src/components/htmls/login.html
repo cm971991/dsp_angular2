@@ -1,0 +1,65 @@
+<!-- 头部 -->
+<div class="logHead">
+  <div class="headImg">
+    <img src="../../assets/images/login/logo.png"/>
+  </div>
+</div>
+
+<div class="logBody">
+  <img class="logBanner" src="../../assets/images/login/banner.jpg"/>
+  <!-- 短信登录 -->
+  <div class="logGet animated" [@animateType]="form.stateType" [ngStyle]="setSmsClass()">
+    <!-- 头部提示信息 -->
+    <div class="logD logDtip">
+      <p>短信登录</p>
+      <p><img src="../../assets/images/login/user.png" title="短信登录" (click)="loginType(2)"/></p>
+    </div>
+    <!-- 输入框 -->
+    <div class="lgD form-group">
+      <img src="../../assets/images/login/logName.png"/>
+      <input type="tel" class="form-control" maxlength="11" placeholder="手机号码" [(ngModel)]="form.phone">
+    </div>
+    <div class="lgD form-group">
+      <img src="../../assets/images/login/logPwd.png"/>
+      <input type="text" class="form-control yzm" maxlength="6" placeholder="验证码" [(ngModel)]="form.smsCode">
+      <button class="btnyzm" [disabled]="form.valid" [ngStyle]="setSmsBtnClass()" (click)="sendCode()">{{form.btnSendCodeText}}</button>
+    </div>
+    <div class="lgD form-group errorMsg" *ngIf="form.errorFlag">
+      <p>{{form.errorMsg}}</p>
+    </div>
+    <div class="logC form-group">
+      <button (click)="smsLogin()">登 录</button>
+    </div>
+  </div>
+
+  <!-- 账号登录 -->
+  <div class="logGet animated account" [@animateType]="form.stateType" [ngStyle]="setAccountClass()">
+    <!-- 头部提示信息 -->
+    <div class="logD logDtip">
+      <p>账号登录</p>
+      <p><img src="../../assets/images/login/phone.png" title="短信登录" (click)="loginType(1)"/></p>
+    </div>
+    <!-- 输入框 -->
+    <div class="lgD form-group">
+      <img src="../../assets/images/login/logName.png"/>
+      <input type="text" class="form-control" maxlength="16" placeholder="账号" [(ngModel)]="form.account"/>
+    </div>
+    <div class="lgD form-group">
+      <img src="../../assets/images/login/logPwd.png"/>
+      <input type="password" class="form-control" maxlength="20" placeholder="密码" [(ngModel)]="form.password"/>
+    </div>
+    <div class="lgD form-group errorMsg" *ngIf="form.errorFlag">
+      <p>{{form.errorMsg}}</p>
+    </div>
+    <div class="logC form-group">
+      <button (click)="accountLogin()">登 录</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- 底部 -->
+<div class="logFoot">
+  <p>南京安讯科技有限责任公司</p>
+  <p>copyright@2016 南京安讯科技有限责任公司 版权所有</p>
+</div>

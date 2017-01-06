@@ -1,0 +1,122 @@
+<!--头部-->
+<div class="header">
+  <!--网站LOGO及标题-->
+  <div class="div-logo-title">
+    <div class="div-title">{{model.title}}</div>
+  </div>
+  <!--头部右边-->
+  <div class="header-menu">
+    <ul class="nav navbar-nav top-nav">
+      <li class="user-menu">
+        <a href="javascript:void(0);"
+           style="padding-left: 30px;padding-right: 30px;" (click)="showLogOut()">
+          <img class="user-image" src="../../assets/images/main/head.jpg" >
+          <span>{{model.logName}}</span>
+        </a>
+
+        <ul class="dropdown-menu" style="position: fixed;right: 60px;top: 50px;" [ngStyle]="setLogOutClass()">
+          <li class="user-header">
+            <img src="../../assets/images/main/head.jpg" class="img-circle">
+            <p>
+              {{model.logName}}
+              <small id="currentTime">{{model.time}}</small>
+            </p>
+          </li>
+          <li class="user-footer">
+            <div class="pull-loginout">
+              <a href="javascript:void(0);" class="btn btn-default btn-flat" style="width: 50%;display: inline;"
+                 (click)="logOut()">退出</a>
+              <a href="javascript:void(0);" class="btn btn-default btn-flat" style="width:50%;display: inline;"
+                 (click)="cancel()">关闭</a>
+            </div>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!--主体-->
+<div>
+  <!--menu菜单-->
+  <div class="navigation">
+    <div class="user-panel">
+      <div class="pull-left image">
+        <img src="../../assets/images/main/head.jpg" class="img-circle" alt="User Image">
+      </div>
+      <div class="pull-left info">
+        <p>{{model.logName}}</p>
+        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+      </div>
+    </div>
+
+    <ul id="accordion" class="accordion">
+      <li id='menu{{item.ModuleId}}' class="ng-scope" *ngFor="let item of menuList">
+        <a href="javascript:void(0);" class="link" (click)="changeMenu(item.ModuleId , item.ParentId,true,$event)">
+          <i class="{{item.Icon}}"></i>
+          <span>{{item.FullName}}</span>
+          <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="submenu b-children" *ngIf="childMenuList.length>0">
+          <!--没有子菜单-->
+          <li class="secmenu-parent"
+              *ngFor="let childNoItem of (childMenuList | limitNoChildMenu:item.ModuleId:allMenuList) "
+              title="{{childNoItem.FullName}}"
+              id='menu{{childNoItem.ModuleId}}'
+              (click)="changeIcon(childNoItem.ModuleId)">
+            <a data-toggle="tooltip" data-placement="right" [attr.data-original-title]="childNoItem.FullName"
+               data-trigger="hover" style="padding-left: 40px;">
+              <img class="dashed show" src='../../assets/images/main/dashed.png'>
+              <img class="solid hide" src='../../assets/images/main/solid.png'>
+              <span class="menu-text">{{childNoItem.FullName}}</span>
+              <div class="arrow-left" style="display:none;position:absolute;right:0;top:0;"></div>
+            </a>
+          </li>
+
+          <!--有子菜单-->
+          <li class="secmenu-parent"
+              *ngFor="let childItem of (childMenuList | limitMenu:item.ModuleId:allMenuList) "
+              title="{{childItem.FullName}}"
+              id='menu{{childItem.ModuleId}}'>
+            <a class="link" data-toggle="tooltip" data-placement="right"
+               data-trigger="hover" [attr.data-original-title]="childItem.FullName"
+               style="padding-left: 40px;border-bottom: 1px solid #dedede;"
+               (click)="changeMenu(childItem.ModuleId , childItem.ParentId,true,$event)">
+              <img class="dashed show" src='../../assets/images/main/dashed.png'>
+              <img class="solid hide" src='../../assets/images/main/solid.png'>
+              <span class="menu-text">{{childItem.FullName}}</span>
+              <i class="fa fa-angle-left pull-right"></i>
+            </a>
+
+            <ul class="submenu b-children" *ngIf="secChildMenuList.length>0">
+              <li class="secmenu-parent"
+                  *ngFor="let secChildItem of (secChildMenuList | limitChildMenu:childItem.ModuleId) "
+                  title="{{secChildItem.FullName}}"
+                  id='menu{{secChildItem.ModuleId}}'>
+                <a class="link" data-toggle="tooltip" data-placement="right"
+                   data-trigger="hover" [attr.data-original-title]="secChildItem.FullName"
+                   style="padding-left: 60px;border-bottom: 1px solid #dedede;"
+                   (click)="changeMenu(secChildItem.ModuleId , secChildItem.ParentId,true,$event)">
+                  <img class="dashed dashed-left show" src='../../assets/images/main/dashed.png'>
+                  <img class="solid hide" src='../../assets/images/main/solid.png'>
+                  <span class="menu-text">{{secChildItem.FullName}}</span>
+                  <div class="arrow-left" style="display:none;position:absolute;right:0;top:0;"></div>
+                </a>
+
+              </li>
+            </ul>
+
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <!--tab标签-->
+  <div id="overlay_navigation">
+  </div>
+  <!--数据列表区-->
+  <div id="ContentPannel">
+    <!--内容页-->
+    <router-outlet></router-outlet>
+  </div>
+</div>
