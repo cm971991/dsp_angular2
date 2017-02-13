@@ -1,6 +1,6 @@
 # dsp_angular2
 <br> 
-## 基于angular2、bootstrap实现的后台管理系统，使用webpack打包
+## 基于angular2、bootstrap前后端分离实现的后台管理系统，使用webpack打包
 <br> 
 
 ###开始
